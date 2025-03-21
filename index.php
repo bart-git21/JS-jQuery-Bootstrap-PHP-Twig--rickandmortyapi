@@ -24,6 +24,22 @@
 <body>
     <button id="getDataBtn" type="button" class="btn btn-primary">Get</button>
 
+    <script>
+        $(document).ready(function () {
+            $('#getDataBtn').on('click', function () {
+                $.ajax({
+                    url: "https://rickandmortyapi.com/api/character/?name=rick&status=alive",
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                })
+                .done((response)=>{console.log(response)})
+                .fail((xhr, status, error)=>{console.log(error); console.log(xhr.status)});
+            })
+        })
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
