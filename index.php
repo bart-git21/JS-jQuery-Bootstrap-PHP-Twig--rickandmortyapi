@@ -32,8 +32,17 @@
 
     <script>
         $(document).ready(function () {
+            const query = {
+                nameSelect: "",
+                statusSelect: "",
+                genderSelect: "",
+                speciesSelect: ""
+            }
             $('#getDataBtn').on('click', function (event) {
                 event.preventDefault();
+                $('select').each(function () {
+                    query[$(this)[0].id] = $(this).val();
+                })
                 $.ajax({
                     url: "https://rickandmortyapi.com/api/character/?name=rick&status=alive",
                     method: "GET",
