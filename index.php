@@ -22,7 +22,13 @@
 </head>
 
 <body>
-    <button id="getDataBtn" type="button" class="btn btn-primary">Get</button>
+    <div class="container">
+        <form>
+            <h2>Character:</h2>
+            <?php include "components/select.php" ?>
+            <button id="getDataBtn" type="submit" class="btn btn-primary">Get</button>
+        </form>
+    </div>
 
     <script>
         $(document).ready(function () {
