@@ -32,7 +32,8 @@
 
     <script>
         $(document).ready(function () {
-            $('#getDataBtn').on('click', function () {
+            $('#getDataBtn').on('click', function (event) {
+                event.preventDefault();
                 $.ajax({
                     url: "https://rickandmortyapi.com/api/character/?name=rick&status=alive",
                     method: "GET",
@@ -40,8 +41,12 @@
                         "Content-Type": "application/json",
                     }
                 })
-                .done((response)=>{console.log(response)})
-                .fail((xhr, status, error)=>{console.log(error); console.log(xhr.status)});
+                    .done((response) => {
+                        console.log(response)
+                    })
+                    .fail((xhr, status, error) => {
+                        console.log(error); console.log(xhr.status)
+                    });
             })
         })
     </script>
