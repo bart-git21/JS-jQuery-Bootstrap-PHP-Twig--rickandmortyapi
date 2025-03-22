@@ -44,7 +44,7 @@
                     query[$(this)[0].id] = $(this).val();
                 })
                 $.ajax({
-                    url: `https://rickandmortyapi.com/api/character/?name=${query.nameSelect}&status=${query.statusSelect}&gender=${query.genderSelect}&species=${query.speciesSelect}`,
+                    url: `/api/`,
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
