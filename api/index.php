@@ -1,23 +1,30 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
+$twigLoader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
+$twig = new \Twig\Environment($twigLoader);
 $apiEndpoint = 'https://rickandmortyapi.com/graphql';
-$query = '{
-  characters(page: 2, filter: { name: "rick" }) {
-    info {
-      count
-    }
-    results {
-      name
-    }
-  }
-  location(id: 1) {
-    id
-    name
-  }
-  episodesByIds(ids: [1, 2]) {
-    id
-    name
-  }
-}';
+// $query = '{
+//   characters(page: 2, filter: { name: "rick" }) {
+//     info {
+//       count
+//     }
+//     results {
+//       name
+//     }
+//   }
+//   location(id: 1) {
+//     id
+//     name
+//   }
+//   episodesByIds(ids: [1, 2]) {
+//     id
+//     name
+//   }
+// }';
+$ids = [1,2,3];
+$query = $twig->render('query.html.twig', [
+    'ids' => $ids,
+]);
 
 $ch = curl_init($apiEndpoint);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
