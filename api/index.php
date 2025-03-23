@@ -6,12 +6,12 @@ $apiEndpoint = 'https://rickandmortyapi.com/graphql';
 
 // Get the request data from the client-side
 $data = json_decode(file_get_contents('php://input'), true);
-$name = filter_var($data['nameSelect'] ?? "", FILTER_SANITIZE_STRING);
-$status = filter_var($data['statusSelect'] ?? "", FILTER_SANITIZE_STRING);
-$gender = filter_var($data['genderSelect'] ?? "", FILTER_SANITIZE_STRING);
-$species = filter_var($data['speciesSelect'] ?? "", FILTER_SANITIZE_STRING);
-$locationIds = filter_var($data['locationInput'] ?? "", FILTER_SANITIZE_STRING);
-$episodeIds = filter_var($data['episodeInput'] ?? "", FILTER_SANITIZE_STRING);
+$name = isset($data['nameSelect']) ? htmlspecialchars($data['nameSelect'], ENT_QUOTES, 'UTF-8') : "";
+$status = isset($data['statusSelect']) ? htmlspecialchars($data['statusSelect'], ENT_QUOTES, 'UTF-8') : "";
+$gender = isset($data['genderSelect']) ? htmlspecialchars($data['genderSelect'], ENT_QUOTES, 'UTF-8') : "";
+$species = isset($data['speciesSelect']) ? htmlspecialchars($data['speciesSelect'], ENT_QUOTES, 'UTF-8') : "";
+$locationIds = isset($data['locationInput']) ? htmlspecialchars($data['locationInput'], ENT_QUOTES, 'UTF-8') : "";
+$episodeIds = isset($data['episodeInput']) ? htmlspecialchars($data['episodeInput'], ENT_QUOTES, 'UTF-8') : "";
 
 // Prepare the GraphQL query template with the provided data
 $query = $twig->render('query.html.twig', [
