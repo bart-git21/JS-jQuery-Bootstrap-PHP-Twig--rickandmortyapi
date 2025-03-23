@@ -25,6 +25,7 @@
     <div class="container">
         <form>
             <?php include "components/select.php" ?>
+            <?php include "components/input.php" ?>
             <button id="getDataBtn" type="submit" class="btn btn-primary">Get</button>
         </form>
     </div>
