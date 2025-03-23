@@ -32,6 +32,7 @@
 
     <script>
         $(document).ready(function () {
+            const isValidInputValue = (value) => (/^[\d,]*$/.test(value));
             const query = {
                 nameSelect: "",
                 statusSelect: "",
@@ -42,11 +43,18 @@
             }
             $('#getDataBtn').on('click', function (event) {
                 event.preventDefault();
+                $("small#errorMsg").each(function () {
+                    this.textContent = "";
+                })
                 $('select').each(function () {
                     query[$(this)[0].id] = $(this).val();
                 })
                 $('input').each(function () {
-                    query[this.id] = this.value;
+                    if (isValidInputValue(this.value)) {
+                        query[this.id] = this.value;
+                    } else {
+                        $(this).next().text("Invalid data. Please enter only numbers, separated by comma.");
+                    }
                 })
                 $.ajax({
                     url: `/api/`,
