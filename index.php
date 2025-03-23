@@ -23,65 +23,100 @@
 
 <body>
     <div class="container">
-        <form>
-            <?php include "components/select.php" ?>
-            <?php include "components/input.php" ?>
-            <button id="getDataBtn" type="submit" class="btn btn-primary">Get</button>
-        </form>
+        <h1 class="text-center">Application for testing GraphQL queries</h1>
+        <h3 class="text-center">(with appreciation to rickandmortyapi.com)</h3>
+        <div class="row gx-5">
+            <div class="col border">
+                <form style="max-width:300px;">
+                    <h4 class="text-center">Choose the values</h4>
+                    <?php include "components/select.php" ?>
+                    <?php include "components/input.php" ?>
+                    <button id="getDataBtn" type="submit" class="btn btn-primary">Get</button>
+                </form>
+            </div>
+            <div class="col border">
+                <h4 class="text-center">Result</h4>
+                <div id="output"></div>
+            </div>
+        </div>
+
     </div>
 
     <script>
         $(document).ready(function () {
-            const isValidInputValue = (value) => (/^[\d,]*$/.test(value));
-            const query = {
-                nameSelect: "",
-                statusSelect: "",
-                genderSelect: "",
-                speciesSelect: "",
-                locationInput: "",
-                episodeInput: "",
+            class Card {
+                constructor(response) {
+                    this.list = response.data.characters.results;
+                }
+                addCard(data) {
+                    return `
+                    <div class="card" style="width: 18rem;">
+                        <img src="${data.image}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${data.name}</h5>
+                            <p class="card-text">${data.species} - ${data.status}</p>
+                        </div>
+                    </div>
+                    `
+                }
+                display() {
+                    this.list.forEach(
+                        e => $("#output").append(this.addCard(e))
+                    )
+                }
             }
-            let errors = false;
+        const isValidInputValue = (value) => (/^[\d,]*$/.test(value));
+        const query = {
+            nameSelect: "",
+            statusSelect: "",
+            genderSelect: "",
+            speciesSelect: "",
+            locationInput: "",
+            episodeInput: "",
+        }
+        let errors = false;
 
-            $('#getDataBtn').on('click', function (event) {
-                event.preventDefault();
-                errors = false;
-                $("small#errorMsg").each(function () {
-                    this.textContent = "";
-                })
-                $('select').each(function () {
-                    query[$(this)[0].id] = $(this).val();
-                })
-                $('input').each(function () {
-                    if (isValidInputValue(this.value)) {
-                        query[this.id] = this.value;
-                    } else {
-                        errors = true;
-                        $(this).next().text("Invalid data. Please enter numbers only, separated by comma.");
-                    }
-                })
-                !errors && $.ajax({
-                    url: `/api/`,
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    data: JSON.stringify(query),
-                })
-                    .done((response) => {
-                        $('select').each(function () {
-                            $(this).val("");
-                        })
-                        $('input').each(function () {
-                            this.value = "";
-                        })
-                        console.log(response)
-                    })
-                    .fail((xhr, status, error) => {
-                        console.log(error);
-                        console.log(xhr.status);
-                    });
+        $('#getDataBtn').on('click', function (event) {
+            event.preventDefault();
+            errors = false;
+            $("small#errorMsg").each(function () {
+                this.textContent = "";
             })
+            $('select').each(function () {
+                query[$(this)[0].id] = $(this).val();
+            })
+            $('input').each(function () {
+                if (isValidInputValue(this.value)) {
+                    query[this.id] = this.value;
+                } else {
+                    errors = true;
+                    $(this).next().text("Invalid data. Please enter numbers only, separated by comma.");
+                }
+            })
+            !errors && $.ajax({
+                url: `/api/`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data: JSON.stringify(query),
+            })
+                .done((response) => {
+                    $('select').each(function () {
+                        $(this).val("");
+                    })
+                    $('input').each(function () {
+                        this.value = "";
+                    })
+                    console.log(response);
+                    const cards = new Card(response);
+                    cards.display();
+                })
+                .fail((xhr, status, error) => {
+                    console.log(error);
+                    console.log(xhr.status);
+                });
+        })
         })
     </script>
 
