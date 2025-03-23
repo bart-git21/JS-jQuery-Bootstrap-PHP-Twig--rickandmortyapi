@@ -1,5 +1,20 @@
 {
-  characters(page: 1, filter: { name: "{{name}}", status: "{{status}}", gender: "{{gender}}", species: "{{species}}",  }) {
+  characters(
+    page: 1, 
+    filter: {
+        {% if name %}
+            name: "{{name}}",
+        {% endif %}
+        {% if status %}
+            status: "{{status}}",
+        {% endif %}
+        {% if gender %}
+            gender: "{{gender}}",
+        {% endif %}
+        {% if species %}
+            species: "{{species}}",
+        {% endif %}
+    }) {
     info {
       count
     }
@@ -7,12 +22,16 @@
       name
     }
   }
-  location(id: 1) {
+{% if locationIds %}
+  locationsByIds(ids: [{{locationIds}}]) {
     id
     name
   }
-  episodesByIds(ids: [{% for id in ids %} {{ id }}, {% endfor %}]) {
+{% endif %}
+{% if locationIds %}
+  episodesByIds(ids: [{{episodeIds}}]) {
     id
     name
   }
+{% endif %}
 }
