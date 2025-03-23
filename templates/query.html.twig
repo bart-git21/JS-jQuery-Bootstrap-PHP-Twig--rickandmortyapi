@@ -1,5 +1,5 @@
 {
-  characters(page: 2, filter: { name: "rick" }) {
+  characters(page: 1, filter: { name: "{{name}}", status: "{{status}}", gender: "{{gender}}", species: "{{species}}",  }) {
     info {
       count
     }
