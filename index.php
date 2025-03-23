@@ -69,6 +69,12 @@
                     data: JSON.stringify(query),
                 })
                     .done((response) => {
+                        $('select').each(function () {
+                            $(this).val("");
+                        })
+                        $('input').each(function () {
+                            this.value = "";
+                        })
                         console.log(response)
                     })
                     .fail((xhr, status, error) => {
