@@ -41,8 +41,11 @@
                 locationInput: "",
                 episodeInput: "",
             }
+            let errors = false;
+
             $('#getDataBtn').on('click', function (event) {
                 event.preventDefault();
+                errors = false;
                 $("small#errorMsg").each(function () {
                     this.textContent = "";
                 })
@@ -53,10 +56,11 @@
                     if (isValidInputValue(this.value)) {
                         query[this.id] = this.value;
                     } else {
-                        $(this).next().text("Invalid data. Please enter only numbers, separated by comma.");
+                        errors = true;
+                        $(this).next().text("Invalid data. Please enter numbers only, separated by comma.");
                     }
                 })
-                $.ajax({
+                !errors && $.ajax({
                     url: `/api/`,
                     method: "POST",
                     headers: {
