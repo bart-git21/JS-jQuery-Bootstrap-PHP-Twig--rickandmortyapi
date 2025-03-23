@@ -6,12 +6,12 @@ $apiEndpoint = 'https://rickandmortyapi.com/graphql';
 
 // Get the request data from the client-side
 $data = json_decode(file_get_contents('php://input'), true);
-$name = $data['nameSelect'];
-$status = $data['statusSelect'];
-$gender = $data['genderSelect'];
-$species = $data['speciesSelect'];
-$locationIds = $data['locationInput'];
-$episodeIds = $data['episodeInput'];
+$name = filter_var($data['nameSelect'] ?? "", FILTER_SANITIZE_STRING);
+$status = filter_var($data['statusSelect'] ?? "", FILTER_SANITIZE_STRING);
+$gender = filter_var($data['genderSelect'] ?? "", FILTER_SANITIZE_STRING);
+$species = filter_var($data['speciesSelect'] ?? "", FILTER_SANITIZE_STRING);
+$locationIds = filter_var($data['locationInput'] ?? "", FILTER_SANITIZE_STRING);
+$episodeIds = filter_var($data['episodeInput'] ?? "", FILTER_SANITIZE_STRING);
 
 // Prepare the GraphQL query template with the provided data
 $query = $twig->render('query.html.twig', [
