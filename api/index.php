@@ -3,29 +3,25 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $twigLoader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
 $twig = new \Twig\Environment($twigLoader);
 $apiEndpoint = 'https://rickandmortyapi.com/graphql';
-// $query = '{
-//   characters(page: 2, filter: { name: "rick" }) {
-//     info {
-//       count
-//     }
-//     results {
-//       name
-//     }
-//   }
-//   location(id: 1) {
-//     id
-//     name
-//   }
-//   episodesByIds(ids: [1, 2]) {
-//     id
-//     name
-//   }
-// }';
+
+// Get the request data from the client-side
+$data = json_decode(file_get_contents('php://input'), true);
+$name = $data['nameSelect'];
+$status = $data['statusSelect'];
+$gender = $data['genderSelect'];
+$species = $data['speciesSelect'];
 $ids = [1,2,3];
+
+// Prepare the GraphQL query template with the provided data
 $query = $twig->render('query.html.twig', [
+    'name' => $name,
+    'status' => $status,
+    'gender' => $gender,
+    'species' => $species,
     'ids' => $ids,
 ]);
 
+// Make the API request
 $ch = curl_init($apiEndpoint);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
