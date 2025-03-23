@@ -36,7 +36,7 @@
             </div>
             <div class="col border">
                 <h4 class="text-center">Result</h4>
-                <div id="output"></div>
+                <div id="output" class="d-flex flex-wrap"></div>
             </div>
         </div>
 
@@ -50,7 +50,7 @@
                 }
                 addCard(data) {
                     return `
-                    <div class="card" style="width: 18rem;">
+                    <div class="card m-2" style="width: 18rem;">
                         <img src="${data.image}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">${data.name}</h5>
