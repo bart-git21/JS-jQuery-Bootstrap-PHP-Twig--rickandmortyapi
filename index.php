@@ -36,12 +36,17 @@
                 nameSelect: "",
                 statusSelect: "",
                 genderSelect: "",
-                speciesSelect: ""
+                speciesSelect: "",
+                locationInput: "",
+                episodeInput: "",
             }
             $('#getDataBtn').on('click', function (event) {
                 event.preventDefault();
                 $('select').each(function () {
                     query[$(this)[0].id] = $(this).val();
+                })
+                $('input').each(function () {
+                    query[this.id] = this.value;
                 })
                 $.ajax({
                     url: `/api/`,
@@ -55,7 +60,8 @@
                         console.log(response)
                     })
                     .fail((xhr, status, error) => {
-                        console.log(error); console.log(xhr.status)
+                        console.log(error);
+                        console.log(xhr.status);
                     });
             })
         })
