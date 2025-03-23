@@ -24,7 +24,6 @@
 <body>
     <div class="container">
         <form>
-            <h2>Character:</h2>
             <?php include "components/select.php" ?>
             <button id="getDataBtn" type="submit" class="btn btn-primary">Get</button>
         </form>
