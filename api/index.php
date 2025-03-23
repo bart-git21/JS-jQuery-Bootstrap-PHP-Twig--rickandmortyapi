@@ -10,7 +10,8 @@ $name = $data['nameSelect'];
 $status = $data['statusSelect'];
 $gender = $data['genderSelect'];
 $species = $data['speciesSelect'];
-$ids = [1,2,3];
+$locationIds = $data['locationInput'];
+$episodeIds = $data['episodeInput'];
 
 // Prepare the GraphQL query template with the provided data
 $query = $twig->render('query.html.twig', [
@@ -18,7 +19,8 @@ $query = $twig->render('query.html.twig', [
     'status' => $status,
     'gender' => $gender,
     'species' => $species,
-    'ids' => $ids,
+    'locationIds' => $locationIds,
+    'episodeIds' => $episodeIds,
 ]);
 
 // Make the API request
