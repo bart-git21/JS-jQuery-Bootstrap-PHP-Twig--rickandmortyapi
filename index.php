@@ -45,10 +45,11 @@
                 })
                 $.ajax({
                     url: `/api/`,
-                    method: "GET",
+                    method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                    }
+                    },
+                    data: JSON.stringify(query),
                 })
                     .done((response) => {
                         console.log(response)
