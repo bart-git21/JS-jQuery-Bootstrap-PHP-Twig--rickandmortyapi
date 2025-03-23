@@ -50,7 +50,7 @@
                 }
                 addCard(data) {
                     return `
-                    <div class="card m-2" style="width: 18rem;">
+                    <div class="card m-2" style="width: 11rem;">
                         <img src="${data.image}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">${data.name}</h5>
