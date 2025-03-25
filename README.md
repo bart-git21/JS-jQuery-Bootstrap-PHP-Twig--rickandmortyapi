@@ -5,11 +5,11 @@
 Application used GraphQL queries and Twig templates.
 ```
 # Technologies Used
-Backend: PHP, GraphQL.
-Frontentd: Javascript, jQuery 3+, Bootstrap 4.3.
-Authentication: no.
-Data format: JSON.
-Deployment: GitHub.
+- Backend: PHP, GraphQL, Twig.
+- Frontentd: Javascript, jQuery 3+, Bootstrap 4.3.
+- Authentication: no.
+- Data format: JSON.
+- Deployment: GitHub.
 
 # Application features
 - User select different values from the select menu.
